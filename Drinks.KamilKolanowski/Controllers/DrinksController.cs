@@ -1,4 +1,4 @@
-using Drinks.KamilKolanowski.Enums;
+using Drinks.KamilKolanowski.Models;
 using Drinks.KamilKolanowski.Services;
 using Spectre.Console;
 
@@ -6,71 +6,21 @@ namespace Drinks.KamilKolanowski.Controllers;
 
 internal class DrinksController
 {
-    internal void ShowDrinks()
+    CreateDrinkDetails createDrinkDetails = new ();
+    
+    internal async Task CreateDrinksList(string drinkType)
     {
-        CreateDrinkDetailsTable drinkDetailsTable = new();
+        var drinks = await createDrinkDetails.CreateListOfDrinks(drinkType);
         
-        while (true)
-        {
-            Console.Clear();
+        var selectedDrink = AnsiConsole.Prompt(
+            new SelectionPrompt<Drink>()
+                .Title("[gold3_1]Select Drink from the list[/]")
+                .AddChoices(drinks)
+                .UseConverter(drink => drink.strDrink)
+        );
+        
+        var details = await createDrinkDetails.CreateListOfDrinkDetails(selectedDrink.idDrink);
 
-            var selectDrinkCategory = AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-                    .Title("Select Drink Category from the list")
-                    .AddChoices(DrinkCategories.DrinkCategoryOptionsDisplay.Values)
-            );
-
-            var selectedDrinkCategory = DrinkCategories
-                .DrinkCategoryOptionsDisplay.FirstOrDefault(d => d.Value == selectDrinkCategory)
-                .Key;
-
-            switch (selectedDrinkCategory)
-            {
-                case DrinkCategories.DrinkCategoryOptions.Cocktail:
-                    drinkDetailsTable.CreateTable("Cocktail", new List<string> { "Whiskey", "Lemon", "Angostura" });
-                    Console.ReadKey();
-                    break;
-                case DrinkCategories.DrinkCategoryOptions.OrdinaryDrink:
-                    drinkDetailsTable.CreateTable("Ordinary Drink", new List<string> { "Vodka", "Salt", "Pepper" });
-                    Console.ReadKey();
-                    break;
-                case DrinkCategories.DrinkCategoryOptions.PunchPartyDrink:
-
-                    Console.ReadKey();
-                    break;
-                case DrinkCategories.DrinkCategoryOptions.Shake:
-                    AnsiConsole.MarkupLine("[bold green]Selected Shake[/]");
-                    Console.ReadKey();
-                    break;
-                case DrinkCategories.DrinkCategoryOptions.OtherUnknown:
-                    AnsiConsole.MarkupLine("[bold green]Unknown[/]");
-                    Console.ReadKey();
-                    break;
-                case DrinkCategories.DrinkCategoryOptions.Cocoa:
-                    AnsiConsole.MarkupLine("[bold green]Cocoa[/]");
-                    Console.ReadKey();
-                    break;
-                case DrinkCategories.DrinkCategoryOptions.Shot:
-                    AnsiConsole.MarkupLine("[bold green]Shot[/]");
-                    Console.ReadKey();
-                    break;
-                case DrinkCategories.DrinkCategoryOptions.CoffeeTea:
-                    AnsiConsole.MarkupLine("[bold green]CoffeeTea[/]");
-                    Console.ReadKey();
-                    break;
-                case DrinkCategories.DrinkCategoryOptions.HomemadeLiqueur:
-                    AnsiConsole.MarkupLine("[bold green]Homemade Liqueur[/]");
-                    Console.ReadKey();
-                    break;
-                case DrinkCategories.DrinkCategoryOptions.Beer:
-                    AnsiConsole.MarkupLine("[bold green]Beer[/]");
-                    Console.ReadKey();
-                    break;
-                case DrinkCategories.DrinkCategoryOptions.SoftDrink:
-                    AnsiConsole.MarkupLine("[bold green]Soft Drink[/]");
-                    Console.ReadKey();
-                    break;
-            }
-        }
+        await createDrinkDetails.CreateTable(selectedDrink.strDrink, details);
     }
 }

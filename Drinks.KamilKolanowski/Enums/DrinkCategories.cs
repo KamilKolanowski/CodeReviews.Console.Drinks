@@ -15,6 +15,7 @@ internal class DrinkCategories
         HomemadeLiqueur,
         Beer,
         SoftDrink,
+        Exit
     }
 
     internal static Dictionary<DrinkCategoryOptions, string> DrinkCategoryOptionsDisplay { get; } =
@@ -31,5 +32,6 @@ internal class DrinkCategories
             [DrinkCategoryOptions.HomemadeLiqueur] = "Homemade Liqueur",
             [DrinkCategoryOptions.Beer] = "Beer",
             [DrinkCategoryOptions.SoftDrink] = "Soft Drink",
+            [DrinkCategoryOptions.Exit] = "Exit Drinks App"
         };
 }
