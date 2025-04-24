@@ -18,12 +18,12 @@ internal class CreateDrinkDetails
         var detail = drink.FirstOrDefault();
         if (detail != null)
         {
-            table.AddRow("[deeppink2]Drink Id[/]", detail.idDrink);
-            table.AddRow("[deeppink2]Drink Name[/]", detail.strDrink);
-            table.AddRow("[deeppink2]Category[/]", detail.strCategory);
-            table.AddRow("[deeppink2]Alcoholic[/]", detail.strAlcoholic);
-            table.AddRow("[deeppink2]Glass[/]", detail.strGlass);
-            table.AddRow("[deeppink2]Instructions[/]", detail.strInstructions);
+            table.AddRow("[deeppink2]Drink Id[/]", detail.IdDrink);
+            table.AddRow("[deeppink2]Drink Name[/]", detail.StrDrink);
+            table.AddRow("[deeppink2]Category[/]", detail.StrCategory);
+            table.AddRow("[deeppink2]Alcoholic[/]", detail.StrAlcoholic);
+            table.AddRow("[deeppink2]Glass[/]", detail.StrGlass);
+            table.AddRow("[deeppink2]Instructions[/]", detail.StrInstructions);
 
             for (int i = 1; i <= 15; i++)
             {
@@ -45,7 +45,7 @@ internal class CreateDrinkDetails
         string response = await drinkDataFetcher.GetAsync($"filter.php?c={drinkType}");
         
         DrinksCategory? drinkCategory = await deserializeJson.DeserializeAsync<DrinksCategory>(response);
-        return drinkCategory?.drinks;
+        return drinkCategory?.Drinks;
     }
     
     internal async Task<List<Details>> CreateListOfDrinkDetails(string drinkId)
@@ -53,6 +53,6 @@ internal class CreateDrinkDetails
         string response = await drinkDataFetcher.GetAsync($"lookup.php?i={drinkId}");
         
         DrinkDetails? drinkDetails = await deserializeJson.DeserializeAsync<DrinkDetails>(response);
-        return drinkDetails?.drinks;
+        return drinkDetails?.Drinks;
     }
 }

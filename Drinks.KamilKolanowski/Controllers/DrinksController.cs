@@ -16,11 +16,11 @@ internal class DrinksController
             new SelectionPrompt<Drink>()
                 .Title("[gold3_1]Select Drink from the list[/]")
                 .AddChoices(drinks)
-                .UseConverter(drink => drink.strDrink)
+                .UseConverter(drink => drink.StrDrink)
         );
         
-        var details = await createDrinkDetails.CreateListOfDrinkDetails(selectedDrink.idDrink);
+        var details = await createDrinkDetails.CreateListOfDrinkDetails(selectedDrink.IdDrink);
 
-        await createDrinkDetails.CreateTable(selectedDrink.strDrink, details);
+        await createDrinkDetails.CreateTable(selectedDrink.StrDrink, details);
     }
 }
