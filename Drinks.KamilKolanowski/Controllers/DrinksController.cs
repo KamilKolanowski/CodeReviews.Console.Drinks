@@ -1,4 +1,5 @@
 using Drinks.KamilKolanowski.Enums;
+using Drinks.KamilKolanowski.Services;
 using Spectre.Console;
 
 namespace Drinks.KamilKolanowski.Controllers;
@@ -7,6 +8,8 @@ internal class DrinksController
 {
     internal void ShowDrinks()
     {
+        CreateDrinkDetailsTable drinkDetailsTable = new();
+        
         while (true)
         {
             Console.Clear();
@@ -24,15 +27,15 @@ internal class DrinksController
             switch (selectedDrinkCategory)
             {
                 case DrinkCategories.DrinkCategoryOptions.Cocktail:
-                    AnsiConsole.MarkupLine("[bold green]Selected Cocktail[/]");
+                    drinkDetailsTable.CreateTable("Cocktail", new List<string> { "Whiskey", "Lemon", "Angostura" });
                     Console.ReadKey();
                     break;
                 case DrinkCategories.DrinkCategoryOptions.OrdinaryDrink:
-                    AnsiConsole.MarkupLine("[bold green]Selected Ordinary Drink[/]");
+                    drinkDetailsTable.CreateTable("Ordinary Drink", new List<string> { "Vodka", "Salt", "Pepper" });
                     Console.ReadKey();
                     break;
                 case DrinkCategories.DrinkCategoryOptions.PunchPartyDrink:
-                    AnsiConsole.MarkupLine("[bold green]Selected Punch Party[/]");
+
                     Console.ReadKey();
                     break;
                 case DrinkCategories.DrinkCategoryOptions.Shake:
