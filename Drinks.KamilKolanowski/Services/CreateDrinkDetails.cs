@@ -12,7 +12,7 @@ internal class CreateDrinkDetails
     {
         var table = new Table();
         table.AddColumn($"[red]{drinkName}[/]");
-        table.AddColumn("");
+        table.AddColumn("[red]Details[/]");
 
         
         var detail = drink.FirstOrDefault();
